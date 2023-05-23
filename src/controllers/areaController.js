@@ -1,10 +1,10 @@
-const empresa = require('../models/empresa');
+const area = require('../models/area');
 
 module.exports = {
     async getAll(request, response) {
       try {
-        const empresas = await empresa.findAll();
-        response.status(200).json(empresas);
+        const areas = await area.findAll();
+        response.status(200).json(areas);
       } catch (error) {
         console.log(error);
         response.status(400).send(error);
@@ -12,7 +12,7 @@ module.exports = {
     },
     async create(request, response) {
       try {
-        await empresa.create(request.body);
+        await area.create(request.body);
         response.status(200).json("Empresa inserida!!");
       } catch (error) {
         console.log(error);
@@ -21,12 +21,12 @@ module.exports = {
     },
     async one(request, response) {
       try {
-        const idEmp = request.params.id;
-        const Empresa = await empresa.findOne({ where: { idEmp } });
-        if (!Empresa) {
+        const idArea = request.params.id;
+        const Area = await area.findOne({ where: { idArea } });
+        if (!Area) {
           return response.status(400).json("Empresa não encontrada");
         }
-        response.status(200).json(Empresa);
+        response.status(200).json(Area);
       } catch (error) {
         console.log(error);
         response.status(400).send(error);
@@ -35,18 +35,18 @@ module.exports = {
     async update(request, response) {
       try {
         const { nome, descricao } = request.body;
-        const idEmp = request.params.id;
-        const Empresa = await empresa.findOne({ where: { idEmp } });
+        const idArea = request.params.id;
+        const Area = await area.findOne({ where: { idArea } });
   
-        if (!Empresa) {
+        if (!Area) {
           return response.status(400).json("Empresa nao encontrada");
         }
-        Empresa.nome = nome;
-        Empresa.descricao = descricao;
+        Area.nome = nome;
+        Area.descricao = descricao;
 
   
-        await Empresa.save();
-        response.status(200).json("Empresa atualizada!!");
+        await Area.save();
+        response.status(200).json("Area atualizada!!");
       } catch (error) {
         console.log(error);
         response.status(400).send(error);
@@ -54,12 +54,12 @@ module.exports = {
     },
     async delete(request,response){
       try {
-        const idEmp = request.params.id;
-        const Empresa = await empresa.destroy({ where: { idEmp } });
-        if (!Empresa) {
-          return response.status(400).json("Empresa não encontrada");
+        const idArea = request.params.id;
+        const Area = await area.destroy({ where: { idArea } });
+        if (!Area) {
+          return response.status(400).json("Area não encontrada");
         }
-        response.status(200).json("Empresa removida!!");
+        response.status(200).json("Area removida!!");
       } catch (error) {
         console.log(error);
         response.status(400).send(error);
